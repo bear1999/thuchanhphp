@@ -8,11 +8,15 @@
         $Price = $_POST['txtPrice'];
         $Quantity = $_POST['txtQuantity'];
         $Description = $_POST['txtDescription'];
-        $Picture = $_POST['txtPicture'];
+        $Picture = $_FILES['txtPicture'];
         
-        $newProduct = new Product($productName, $cateID, $Price, $Quantity, $Description, $Picture);
-        $result = $newProduct->Save();
-
+        try {
+            $newProduct = new Product($productName, $cateID, $Price, $Quantity, $Description, $Picture);
+            $result = $newProduct->save();
+        } catch(Exception $e) {
+            throw new Error($e);
+        }
+        
         if(!$result) 
             header("Location: addProduct.php?failure");
         else header("Location: addProduct.php?inserted");
@@ -27,7 +31,7 @@
     }
 ?>
 
-<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
     <!--Tên sp-->
     <div class="row">
         <div class="lblTitle">
@@ -88,7 +92,7 @@
             <label>Đường dẫn hình ảnh sản phẩm</label>
         </div>
         <div class="lblInput">
-            <input type="text" name="txtPicture" value="<?php echo isset($_POST['txtPicture']) ? $_POST['txtPicture'] : "" ?>">
+            <input type="file" id="txtPicture" name="txtPicture" accept=".PNG,.GIF,.JPG">
         </div>
     </div>
     <!--btnSubmit-->
