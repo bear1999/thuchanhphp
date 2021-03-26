@@ -1,3 +1,4 @@
-<footer class="wrapper">
+<!-- <footer class="wrapper">
     &#169; 2021
-</footer>
+</footer> -->
+<script src="../../public/assets/js/bootstrap.min.js"></script>
