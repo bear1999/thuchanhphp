@@ -28,13 +28,14 @@ class Product
         $file_temp = $this->Picture['tmp_name'];
         $user_file = $this->Picture['name'];
         $timestamp = date("Y") . date("m") . date("d") . date("h") . date("i") . date("s");
-        $filepath = "public/imageProduct" . $timestamp . $user_file;
-        if (move_uploaded_file($file_temp, $filepath) == false)
-           die();
+        $filepath = "../../public/imageProduct/";
+        $nameFile = $timestamp . $user_file;
+        if (move_uploaded_file($file_temp, $filepath . $nameFile) == false)
+            return false;
 
         $db = new Db();
-        $sql = "INSERT INTO product (ProductName, CateID, Price, Quantity, Description, Picture) VALUES 
-                ('$this->productName', '$this->cateID', '$this->Price', '$this->Quantity', '$this->Description', '$filepath')";
+        $sql = "INSERT INTO product (ProductName, CateID, PriceProduct, Quantity, Description, Picture) VALUES 
+                ('$this->productName', '$this->cateID', '$this->Price', '$this->Quantity', '$this->Description', '$nameFile')";
         $result = $db->query_execute($sql);
         return $result;
     }
