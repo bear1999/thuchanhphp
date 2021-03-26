@@ -18,7 +18,7 @@ class Db {
         $connection = $this->Connect();
         $connection->query("SET NAMES utf8");
         $result = $connection->query($queryString);
-        $connection->close();
+        // $connection->close();
         return $result;
     }
 
