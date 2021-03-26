@@ -1,34 +1,30 @@
 <?php
-    require_once("../../Entities/Product.class.php");
-    require_once("../../Entities/Category.class.php");
+require_once("../../Entities/Product.class.php");
+require_once("../../Entities/Category.class.php");
 
-    if(isset($_POST['btnSubmit'])) {
-        $productName = $_POST['txtName'];
-        $cateID = $_POST['txtCateID'];
-        $Price = $_POST['txtPrice'];
-        $Quantity = $_POST['txtQuantity'];
-        $Description = $_POST['txtDescription'];
-        $Picture = $_FILES['txtPicture'];
-        
-        try {
-            $newProduct = new Product($productName, $cateID, $Price, $Quantity, $Description, $Picture);
-            $result = $newProduct->save();
-        } catch(Exception $e) {
-            throw new Error($e);
-        }
-        
-        if(!$result) 
-            header("Location: addProduct.php?failure");
-        else header("Location: addProduct.php?inserted");
-    }
+if (isset($_POST['btnSubmit'])) {
+    $productName = $_POST['txtName'];
+    $cateID = $_POST['txtCateID'];
+    $Price = $_POST['txtPrice'];
+    $Quantity = $_POST['txtQuantity'];
+    $Description = $_POST['txtDescription'];
+    $Picture = $_FILES['txtPicture'];
+
+    $newProduct = new Product($productName, $cateID, $Price, $Quantity, $Description, $Picture);
+    $result = $newProduct->save();
+
+    if (!$result)
+        header("Location: addProduct.php?failure");
+    else header("Location: addProduct.php?inserted");
+}
 ?>
 
 <?php include_once("../../components/header.php"); ?>
 
 <?php
-    if(isset($_GET['inserted'])) {
-        echo "<h2>Thêm sản phẩm thành công</h2>";
-    }
+if (isset($_GET['inserted'])) {
+    echo "<h2>Thêm sản phẩm thành công</h2>";
+}
 ?>
 
 <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
@@ -78,10 +74,10 @@
             <select name="txtCateID">
                 <option value="" selected>---Chọn loại---</option>
                 <?php
-                    $cates = Category::listCategory();
-                    foreach($cates as $item) {
-                        echo "<option value=".$item['CateID'].">".$item['CateName']."</option>";
-                    }
+                $cates = Category::listCategory();
+                foreach ($cates as $item) {
+                    echo "<option value=" . $item['CateID'] . ">" . $item['CateName'] . "</option>";
+                }
                 ?>
             </select>
         </div>
@@ -103,4 +99,4 @@
     </div>
 </form>
 
-<?php include_once("../../components/footer.php")?>
+<?php include_once("../../components/footer.php") ?>
