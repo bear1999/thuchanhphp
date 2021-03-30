@@ -19,9 +19,7 @@ if(isset($_GET["id"])) {
     foreach($_SESSION["cart_items"] as $item) {
         $i++;
         while(list($key, $value) = each($item)) {
-            if($key == "pro_id" && $
-            session_start();
-            session_destroy();value == $pro_id) {
+            if($key == "pro_id" && $value == $pro_id) {
                 array_splice($_SESSION["cart_tem"], $i-1, 1, array(array("pro_id" => $pro_id, "quantity" => $item["quantity"] + 1)));
                 $was_found = true;
             }
@@ -34,7 +32,7 @@ if(isset($_GET["id"])) {
 }
 ?>
 
-<div class="container text-center">
+<div class="row container text-center">
     <div class="col-sm-3">
         <h3>Danh mục</h3>
         <ul class="list-group">
@@ -45,28 +43,72 @@ if(isset($_GET["id"])) {
             <?php } ?>
         </ul>
     </div>
-</div>
-<div class="col-sm-9">
-    <h3>Thông tin giỏ hàng</h3>
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>Tên sản phẩm</th>
-                <th>Hình ảnh</th>
-                <th>Số lượng</th>
-                <th>Đơn giá</th>
-                <th>Thành tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                $total_money = 0;
-                if(isset($_SESSION["cart_items"]) && count($_SESSION["cart_items"]) > 0) {
-                    foreach($_SESSION["cart_items"] as $item) {
-                        $id = $item["pro_id"];
+    <div class="col-sm-9">
+        <h3>Thông tin giỏ hàng</h3>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Hình ảnh</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $total_money = 0;
+                    if(isset($_SESSION["cart_items"]) && count($_SESSION["cart_items"]) > 0) {
+                        foreach($_SESSION["cart_items"] as $item) {
+                            $id = $item["pro_id"];
+                            $product = Product::get_product($id);
+                            $prod = reset($product);
+                            $total_money += $item["quantity"] * $prod["PriceProduct"];
+                            echo "
+                                <tr>
+                                    <td>".$prod["ProductName"]."</td>
+                                    <td><img style='width: 90px; height: 80px;' src='../../public/assets/imageProduct/".$prod["Picture"]."'></td>
+                                    <td>".$item["quantity"]."</td>
+                                    <td>".$prod["PriceProduct"]."</td>
+                                    <td>".$prod["PriceProduct"]."</td>
+                                </tr>
+                            ";
+                        }
+                        echo "
+                            <tr>
+                                <td colspan=5>
+                                    <p class='text-right text-danger'>Tổng tiền: ".$total_money."</p>
+                                </td>
+                            </tr>
+                        ";
+                        echo "
+                            <tr>
+                                <td colspan=3>
+                                    <p class='text-right'>
+                                        <button type='button' class='btn btn-primary'>Tiếp tục mua hàng</button
+                                    </p>
+                                </td>
+                                <td colspan=1>
+                                    <p class='text-right'>
+                                        <button type='button' class='btn btn-success'>Thanh toán</button
+                                    </p>
+                                </td>
+                                <td colspan=1>
+                                    <p class='text-right'>
+                                        <a href='./huy-gio-hang.php'>
+                                            <button type='button' class='btn btn-danger'>Hủy giỏ hàng</button
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                        ";
+                    } else {
+                        echo "Không có sản phẩm nào trong giỏ hàng";
                     }
-                }
-            ?>
-        </tbody>
-    </table>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<?php include_once("../footer.php"); ?>
