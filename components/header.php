@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if(isset($_SESSION['login']) == false) {
+        die("Please login");    
+    }
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>

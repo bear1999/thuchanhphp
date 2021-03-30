@@ -3,7 +3,6 @@ include_once("../header.php");
 require_once("../../Entities/Product.class.php");
 require_once("../../Entities/Category.class.php");
 $cates = Category::listCategory();
-session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
@@ -26,7 +25,7 @@ if(isset($_GET["id"])) {
             }
         }
         if($was_found == false) {
-            array_push($_SESSION["cart_items"], array("pro_id" => $pro_id, "quanity" => 1));
+            array_push($_SESSION["cart_items"], array("pro_id" => $pro_id, "quantity" => 1));
         }
         header("Location: ./shopping_cart.php");
     }
