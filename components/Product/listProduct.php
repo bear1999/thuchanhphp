@@ -5,23 +5,28 @@ require_once("../../Entities/Category.class.php");
 
 <?php
 include_once("../header.php");
-$products = Product::listProduct();
+if(!isset($_GET["cateid"])) {
+    $products = Product::listProduct();
+} else {
+    $cateid = $_GET["cateid"];
+    $products = Product::list_product_by_cateid($cateid);
+}
+$cates = Category::listCategory();
 ?>
 <div class="row container">
     <div class="col-sm-3">
         <br>
-        <?php $cates = Category::listCategory(); ?>
         <ul class="list-group">
             <?php foreach ($cates as $item) { ?>
-                <a href="#" style="text-decoration: none;">
+                <a href="./listProduct.php?cateid=<?php echo $item['CateID'] ?>" style="text-decoration: none;">
                     <li class="list-group-item"><?php echo $item['CateName'] ?></li>
                 </a>
             <?php } ?>
         </ul>
     </div>
 
-    <div class="text-center">
-        <h3>Sản phẩm cửa hàng</h3>
+    <div class="col-sm-9">
+        <h3 class="text-center">Sản phẩm cửa hàng</h3>
         <div class="row">
             <?php foreach ($products as $item) { ?>
                 <div class="col-sm-4">

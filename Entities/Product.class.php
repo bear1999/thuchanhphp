@@ -47,4 +47,28 @@ class Product
         $result = $db->select_to_array($sql);
         return $result;
     }
+
+    public static function list_product_by_cateid($cateid)
+    {
+        $db = new Db();
+        $sql = "SELECT * FROM product WHERE CateID = '$cateid'";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
+
+    public static function list_product_relate($cateid, $id)
+    {
+        $db = new Db();
+        $sql = "SELECT * FROM product WHERE CateID = '$cateid' AND ProductID != '$id'";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
+
+    public static function get_product($id)
+    {
+        $db = new Db();
+        $sql = "SELECT * FROM product WHERE ProductID = '$id'";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
 }
