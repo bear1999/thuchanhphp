@@ -18,8 +18,8 @@ $cates = Category::listCategory();
         <br>
         <ul class="list-group">
             <?php foreach ($cates as $item) { ?>
-                <a href="./listProduct.php?cateid=<?php echo $item['CateID'] ?>" style="text-decoration: none;">
-                    <li class="list-group-item"><?php echo $item['CateName'] ?></li>
+                <a href="./listProduct.php?cateid=<?php echo $item['CateID']; ?>" style="text-decoration: none;">
+                    <li class="list-group-item"><?php echo $item['CateName']; ?></li>
                 </a>
             <?php } ?>
         </ul>
@@ -36,7 +36,7 @@ $cates = Category::listCategory();
                     <p class="text-danger">Tên sản phẩm: <?php echo $item['ProductName'] ?></p>
                     <p class="text-info">Giá: <?php echo $item['PriceProduct'] ?></p>
                     <p>
-                        <button type="button" class="btn btn-primary">Mua hàng</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='./shopping_cart.php?id=<?php echo $item['ProductID']; ?>'">Mua hàng</button>
                     </p>
                 </div>
             <?php } ?>
