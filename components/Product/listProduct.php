@@ -30,7 +30,9 @@ $cates = Category::listCategory();
         <div class="row">
             <?php foreach ($products as $item) { ?>
                 <div class="col-sm-4">
-                    <img src="<?php echo "../../public/imageProduct/" . $item['Picture'] ?>" class="img-reponsive" style="width: 100%" alt="Image">
+                    <a href="./productDetail.php?id=<?php echo $item['ProductID']; ?>">
+                        <img src="<?php echo "../../public/imageProduct/" . $item['Picture'] ?>" class="img-reponsive" style="width: 100%" alt="Image">
+                    </a>
                     <p class="text-danger">Tên sản phẩm: <?php echo $item['ProductName'] ?></p>
                     <p class="text-info">Giá: <?php echo $item['PriceProduct'] ?></p>
                     <p>
