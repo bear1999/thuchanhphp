@@ -1,5 +1,5 @@
 <?php
 session_start();
-session_destroy();
+unset($_SESSION["cart_items"]);
 header("Location: ./listProduct.php");
 ?>

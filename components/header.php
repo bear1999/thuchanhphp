@@ -1,7 +1,8 @@
 <?php
     session_start();
     if(isset($_SESSION['login']) == false) {
-        die("Please login");    
+        header("Location: /thuchanhphp/components/product/login.php");
+        die();    
     }
 ?>
 <!DOCTYPE html>
@@ -13,5 +14,6 @@
     <title>Web bán hàng</title>
 </head>
 <body>
+    <h4 style="padding-top: 10px; padding-left: 10px;">Xin chào, <?php echo $_SESSION['login']; ?> / <a href="/thuchanhphp/components/Product/logout.php">Thoát!</a></h4>
 </body>
 </html>

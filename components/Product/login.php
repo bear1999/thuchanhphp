@@ -1,14 +1,15 @@
 <?php
 require_once("../../Entities/User.class.php");
+
 if (isset($_POST['btnSubmit'])) {
     $txtUser = $_POST['txtUser'];
     $txtPass = $_POST['txtPass'];
 
     $result = User::checkLogin($txtUser, $txtPass);
     if ($result->num_rows > 0) {
-        header("Location: listProduct.php");
+        header("Location: ../../index.php");
         session_start();
-        $_SESSION['login'] = true;
+        $_SESSION['login'] = $txtUser;
     }
     else header("Location: login.php?fail");
 }

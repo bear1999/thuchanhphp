@@ -29,7 +29,7 @@ class User
         return $result;
     }
 
-    public function checkLogin($user, $pass)
+    public static function checkLogin($user, $pass)
     {
         // $db = new Db();
         $db = new mysqli("localhost", "root", "", "ecommerce");

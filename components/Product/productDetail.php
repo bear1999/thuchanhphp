@@ -5,7 +5,7 @@ require_once("../../Entities/Category.class.php");
 
 <?php
 include_once("../header.php");
-if(!isset($_GET['id'])) {
+if (!isset($_GET['id'])) {
     header("Location: ../not_found.php");
 } else {
     $id = $_GET['id'];
@@ -44,7 +44,9 @@ $cates = Category::listCategory();
                         Mô tả: <?php echo $product["Description"]; ?>
                     </p>
                     <p>
-                        <button type="button" class="btn btn-danger">Mua hàng</button>
+                        <a href="./shopping_cart.php?id=<?php echo $product['ProductID']; ?>">
+                            <button type="button" class="btn btn-danger">Mua hàng</button>
+                        </a>
                     </p>
                 </div>
             </div>
