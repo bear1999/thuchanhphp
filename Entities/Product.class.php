@@ -40,18 +40,86 @@ class Product
         return $result;
     }
 
-    public static function listProduct()
-    {
+    public static function totalRecordsByCateID($cate) {
         $db = new Db();
-        $sql = "SELECT * FROM product";
+        $sql = "SELECT COUNT(ProductID) AS Total FROM product WHERE CateID = '$cate'";
         $result = $db->select_to_array($sql);
         return $result;
     }
 
-    public static function list_product_by_cateid($cateid)
+    public static function totalPageByCateID() {
+        foreach(Product::totalRecords() as $item) 
+            $total_records = $item["Total"];
+
+        $limit = 1;
+        $total_page = ceil($total_records / $limit);
+        return $total_page;
+    }
+
+    public static function totalRecords() {
+        $db = new Db();
+        $sql = "SELECT COUNT(ProductID) AS Total FROM product";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
+
+    public static function totalPage() {
+        foreach(Product::totalRecords() as $item) 
+            $total_records = $item["Total"];
+
+        $limit = 1;
+        $total_page = ceil($total_records / $limit);
+        return $total_page;
+    }
+
+    public static function listProduct($page)
     {
         $db = new Db();
-        $sql = "SELECT * FROM product WHERE CateID = '$cateid'";
+
+        foreach(Product::totalRecords() as $item) 
+            $total_records = $item["Total"];
+
+        $current_page = isset($page) ? $page : 1;
+        $limit = 1; 
+
+        $total_page = ceil($total_records / $limit);
+        // Giới hạn current_page trong khoảng 1 đến total_page
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        // Tìm Start
+        $start = ($current_page - 1) * $limit;
+
+        $sql = "SELECT * FROM product LIMIT $start, $limit";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
+
+    public static function list_product_by_cateid($cateid, $page)
+    {
+        $db = new Db();
+
+        foreach(Product::totalRecords() as $item) 
+            $total_records = $item["Total"];
+
+        $current_page = isset($page) ? $page : 1;
+        $limit = 1; 
+
+        $total_page = ceil($total_records / $limit);
+        // Giới hạn current_page trong khoảng 1 đến total_page
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        // Tìm Start
+        $start = ($current_page - 1) * $limit;
+
+        $sql = "SELECT * FROM product WHERE CateID = '$cateid' LIMIT $start, $limit";
         $result = $db->select_to_array($sql);
         return $result;
     }
@@ -68,6 +136,31 @@ class Product
     {
         $db = new Db();
         $sql = "SELECT * FROM product WHERE ProductID = '$id'";
+        $result = $db->select_to_array($sql);
+        return $result;
+    }
+
+    public static function listPagination() {
+        $db = new Db();
+
+        foreach(totalRecords() as $item) 
+            $totalRecords = $item["Total"];
+
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $limit = 1; 
+
+        $total_page = ceil($total_records / $limit);
+        // Giới hạn current_page trong khoảng 1 đến total_page
+        if ($current_page > $total_page){
+            $current_page = $total_page;
+        }
+        else if ($current_page < 1){
+            $current_page = 1;
+        }
+        // Tìm Start
+        $start = ($current_page - 1) * $limit;
+
+        $sql = "SELECT * FROM product LIMIT $start, $limit";
         $result = $db->select_to_array($sql);
         return $result;
     }
