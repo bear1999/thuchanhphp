@@ -6,6 +6,8 @@ require_once("../../Entities/Category.class.php");
 <?php
 include_once("../header.php");
 
+$limit_default = 1;
+
 if(isset($_GET['limit'])) {
     $limit = $_GET['limit'];
 } else $limit = 1;
@@ -14,8 +16,6 @@ if(isset($_GET['page'])) {
     $current_page = $_GET['page'];
 } else $current_page = 1;
 
-foreach(Product::totalRecords() as $item)
-    $totalRecords = $item["Total"];
 
 if(!isset($_GET["cateid"])) {
     $products = Product::listProduct($current_page, $limit);
@@ -25,12 +25,13 @@ if(!isset($_GET["cateid"])) {
 }
 $cates = Category::listCategory();
 ?>
+
 <div class="row container">
     <div class="col-sm-3">
         <br>
         <ul class="list-group">
             <?php foreach ($cates as $item) { ?>
-                <a href="./listProduct.php?cateid=<?php echo $item['CateID']; ?>&page=1&limit=1" style="text-decoration: none;">
+                <a href="./listProduct.php?cateid=<?php echo $item['CateID']; ?>&page=1&limit=<?php echo $limit_default; ?>" style="text-decoration: none;">
                     <li class="list-group-item"><?php echo $item['CateName']; ?></li>
                 </a>
             <?php } ?>
@@ -69,46 +70,54 @@ $cates = Category::listCategory();
                 </div>
             <?php } ?>
         </div>
-        <div class="pagination">
-            <?php
-            if(!isset($_GET["cateid"])) {
-                $total_page = Product::totalPage();
-                if ($current_page > 1 && $total_page > 1)
-                    echo '<a href="./listProduct.php?page='.($current_page-1).'&limit='.$limit.'" style="padding-right: 10px;">Prev</a>';
-            } else {
-                $current_cate = $_GET["cateid"];
-                $total_page = Product::totalPageByCateID($current_cate);
-                if ($current_page > 1 && $total_page > 1)
-                    echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.($current_page-1).'&limit='.$limit.'" style="padding-right: 10px;">Prev</a> ';
-            }
-            
-            // Lặp khoảng giữa
-            for ($i = 1; $i <= $total_page; $i++){
-                // Nếu là trang hiện tại thì hiển thị thẻ span
-                // ngược lại hiển thị thẻ a
-                if ($i == $current_page){
-                    echo '<span>'.$i.'</span><div style="padding-left: 5px;"></div>';
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php
+                echo '<li class="page-item">';
+                if(!isset($_GET["cateid"])) {
+                    $total_page = Product::totalPage($limit);
+                    if ($current_page > 1 && $total_page > 1)
+                        echo '<a href="./listProduct.php?page='.($current_page-1).'&limit='.$limit.'" class="page-link">Prev</a>';
+                } else {
+                    $current_cate = $_GET["cateid"];
+                    $total_page = Product::totalPageByCateID($current_cate, $limit);
+                    if ($current_page > 1 && $total_page > 1)
+                        echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.($current_page-1).'&limit='.$limit.'" class="page-link">Prev</a> ';
                 }
-                else{
-                    if(!isset($_GET["cateid"])) {
-                        echo '<a href="./listProduct.php?page='.$i.'&limit='.$limit.'">'.$i.'</a> <div style="padding-left: 5px;"></div> ';
-                    } 
-                    else {
-                        echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.$i.'&limit='.$limit.'">'.$i.'</a> <div style="padding-left: 5px;"></div> ';
+                echo '</li>';
+                for ($i = 1; $i <= $total_page; $i++){
+                    if ($i == $current_page){
+                        echo '<li class="page-item disabled">';
+                        echo '<a href="#" class="page-link "><span>'.$i.'</span></a>';
+                        echo '</li>';
                     }
+                    else{
+                        echo '<li class="page-item">';
+                        if(!isset($_GET["cateid"])) {
+                            echo '<a href="./listProduct.php?page='.$i.'&limit='.$limit.'" class="page-link">'.$i.'</a> ';
+                        } 
+                        else {
+                            echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.$i.'&limit='.$limit.'" class="page-link">'.$i.'</a>';
+                        }
+                         echo '</li>';
+                    }
+                   
                 }
-            }
+               
 
-            if(!isset($_GET["cateid"])) {
-                 if ($current_page < $total_page && $total_page > 1)
-                    echo '<a href="./listProduct.php?page='.($current_page+1).'&limit='.$limit.'">Next</a>';
-            } else {
-                if ($current_page < $total_page && $total_page > 1)
-                    echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.($current_page+1).'&limit='.$limit.'">Next</a>';
-            }
-
-            ?>
-        </div>
+                echo '<li class="page-item">';
+                if(!isset($_GET["cateid"])) {
+                    if ($current_page < $total_page && $total_page > 1)
+                        echo '<a href="./listProduct.php?page='.($current_page+1).'&limit='.$limit.'" class="page-link">Next</a>';
+                } else {
+                    if ($current_page < $total_page && $total_page > 1)
+                        echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.($current_page+1).'&limit='.$limit.'" class="page-link">Next</a>';
+                }
+                echo '</li>';
+                ?>
+            </il>
+        </nav>
     </div>
 </div>
 <?php include_once("../footer.php"); ?>

@@ -47,11 +47,13 @@ class Product
         return $result;
     }
 
-    public static function totalPageByCateID($cate) {
+    public static function totalPageByCateID($cate, $lm) {
         foreach(Product::totalRecordsByCateID($cate) as $item) 
             $total_records = $item["Total"];
 
-        $limit = 1;
+        if(isset($lm))
+            $limit = $lm;
+        else $limit = 1;
         $total_page = ceil($total_records / $limit);
         return $total_page;
     }
@@ -63,11 +65,13 @@ class Product
         return $result;
     }
 
-    public static function totalPage() {
+    public static function totalPage($lm) {
         foreach(Product::totalRecords() as $item) 
             $total_records = $item["Total"];
 
-        $limit = 1;
+        if(isset($lm))
+            $limit = $lm;
+        else $limit = 1;
         $total_page = ceil($total_records / $limit);
         return $total_page;
     }
