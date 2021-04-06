@@ -23,13 +23,13 @@ if (isset($_POST['btnSubmit'])) {
         <link href="../../public/assets/css/site.css" rel="stylesheet">
         <!--<link href="./public/assets/css/bootstrap.min.css" rel="stylesheet">
         <script src="./public/assets/js/bootstrap.min.js" rel="stylesheet"></script>-->
-        <title>Đăng nhập gấp</title>
+        <title>Đăng nhập</title>
     </head>
     <body>
         <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <h1 class="text-center login-title">Đăng nhập để zô mua hàng</h1>
+            <h1 class="text-center login-title">ĐĂNG NHẬP</h1>
             <div class="account-wall">
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                     alt="">

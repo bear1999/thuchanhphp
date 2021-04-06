@@ -47,8 +47,8 @@ class Product
         return $result;
     }
 
-    public static function totalPageByCateID() {
-        foreach(Product::totalRecords() as $item) 
+    public static function totalPageByCateID($cate) {
+        foreach(Product::totalRecordsByCateID($cate) as $item) 
             $total_records = $item["Total"];
 
         $limit = 1;
@@ -102,7 +102,7 @@ class Product
     {
         $db = new Db();
 
-        foreach(Product::totalRecords() as $item) 
+        foreach(Product::totalRecordsByCateID($cateid) as $item) 
             $total_records = $item["Total"];
 
         $current_page = isset($page) ? $page : 1;

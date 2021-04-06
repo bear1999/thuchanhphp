@@ -22,7 +22,7 @@ if (isset($_POST['btnSubmit'])) {
         <link href="../../public/assets/css/site.css" rel="stylesheet">
         <!--<link href="./public/assets/css/bootstrap.min.css" rel="stylesheet">
         <script src="./public/assets/js/bootstrap.min.js" rel="stylesheet"></script>-->
-        <title>Đăng ký gấp</title>
+        <title>Đăng ký</title>
     </head>
     <body>
         <div class="container">
@@ -48,7 +48,7 @@ if (isset($_POST['btnSubmit'])) {
                         Đăng ký</button>
                 </form>
             </div>
-            <a href="./login.php" class="text-center new-account">Tạo tài khoản </a>
+            <a href="./login.php" class="text-center new-account">Đăng nhập </a>
         </div>
     </div>
 </div>

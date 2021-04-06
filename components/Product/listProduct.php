@@ -26,7 +26,7 @@ $cates = Category::listCategory();
         <br>
         <ul class="list-group">
             <?php foreach ($cates as $item) { ?>
-                <a href="./listProduct.php?cateid=<?php echo $item['CateID']; ?>&page=<?php echo $current_page; ?>" style="text-decoration: none;">
+                <a href="./listProduct.php?cateid=<?php echo $item['CateID']; ?>&page=1" style="text-decoration: none;">
                     <li class="list-group-item"><?php echo $item['CateName']; ?></li>
                 </a>
             <?php } ?>
@@ -62,7 +62,17 @@ $cates = Category::listCategory();
         </div>
         <div class="pagination">
             <?php
-            $total_page = Product::totalPage();
+            if(!isset($_GET["cateid"])) {
+                $total_page = Product::totalPage();
+                if ($current_page > 1 && $total_page > 1)
+                    echo '<a href="./listProduct.php?page='.($current_page-1).'" style="padding-right: 10px;">Prev</a>';
+            } else {
+                $current_cate = $_GET["cateid"];
+                $total_page = Product::totalPageByCateID($current_cate);
+                if ($current_page > 1 && $total_page > 1)
+                    echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.($current_page-1).'" style="padding-right: 10px;">Prev</a> ';
+            }
+            
             // Lặp khoảng giữa
             for ($i = 1; $i <= $total_page; $i++){
                 // Nếu là trang hiện tại thì hiển thị thẻ span
@@ -75,11 +85,19 @@ $cates = Category::listCategory();
                         echo '<a href="./listProduct.php?page='.$i.'">'.$i.'</a> <div style="padding-left: 5px;"></div> ';
                     } 
                     else {
-                        $current_cate = $_GET["cateid"];
                         echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.$i.'">'.$i.'</a> <div style="padding-left: 5px;"></div> ';
                     }
                 }
             }
+
+            if(!isset($_GET["cateid"])) {
+                 if ($current_page < $total_page && $total_page > 1)
+                    echo '<a href="./listProduct.php?page='.($current_page+1).'">Next</a>';
+            } else {
+                if ($current_page < $total_page && $total_page > 1)
+                    echo '<a href="./listProduct.php?cateid='.$current_cate.'&page='.($current_page+1).'">Next</a>';
+            }
+
             ?>
         </div>
     </div>
