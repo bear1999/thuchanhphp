@@ -14,6 +14,10 @@
     <title>Web bán hàng</title>
 </head>
 <body>
-    <h4 style="padding-top: 10px; padding-left: 10px;">Xin chào, <?php echo $_SESSION['login']; ?> / <a href="/thuchanhphp/components/Product/logout.php">Thoát!</a></h4>
-</body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" style="padding-left: 5px;" href="../../index.php">Trang chủ</a>
+    <h4 style="padding-top: 10px; padding-left: 10px; color: white;" class="navbar-brand">Xin chào, <?php echo $_SESSION['login']; ?> / <a href="/thuchanhphp/components/Product/logout.php">Thoát!</a></h4>
+</nav>
+
+    </body>
 </html>

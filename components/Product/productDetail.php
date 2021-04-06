@@ -27,7 +27,12 @@ $cates = Category::listCategory();
         </ul>
     </div>
     <div class="col-sm-9 panel panel-info">
-        <h3 class="panel-heading">Chi tiết sản phẩm</h3>
+        <div style="padding-top: 10px;"></div>
+        <h3 class="text-center">
+            <div class="alert alert-primary">
+               <span style="color: black;">Chi tiết sản phẩm</span>
+            </div>
+        </h3>
         <div class="row">
             <div class="col-sm-6">
                 <img src="<?php echo "../../public/imageProduct/" . $product['Picture']; ?>" class="img-reponsive" style="width: 100%" alt="Image">
@@ -51,8 +56,12 @@ $cates = Category::listCategory();
                 </div>
             </div>
         </div>
-        <div style="padding-top: 50px;"></div>
-        <h3 class="panel-heading">Sản phẩm liên quan</h3>
+        <div style="padding-top: 10px;"></div>
+        <h3 class="text-center">
+            <div class="alert alert-danger">
+               <span style="color: black;">Sản phẩm liên quan</span>
+            </div>
+        </h3>
         <div class="row">
             <?php foreach ($product_relate as $item) { ?>
                 <div class="col-sm-4">

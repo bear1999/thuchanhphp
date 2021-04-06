@@ -72,7 +72,7 @@ class Product
         return $total_page;
     }
 
-    public static function listProduct($page)
+    public static function listProduct($page, $lm)
     {
         $db = new Db();
 
@@ -80,7 +80,10 @@ class Product
             $total_records = $item["Total"];
 
         $current_page = isset($page) ? $page : 1;
-        $limit = 1; 
+        
+        if(isset($lm))
+            $limit = $lm;
+        else $limit = 1;
 
         $total_page = ceil($total_records / $limit);
         // Giới hạn current_page trong khoảng 1 đến total_page
@@ -98,7 +101,7 @@ class Product
         return $result;
     }
 
-    public static function list_product_by_cateid($cateid, $page)
+    public static function list_product_by_cateid($cateid, $page, $lm)
     {
         $db = new Db();
 
@@ -106,7 +109,10 @@ class Product
             $total_records = $item["Total"];
 
         $current_page = isset($page) ? $page : 1;
-        $limit = 1; 
+
+        if(isset($lm))
+            $limit = $lm;
+        else $limit = 1;
 
         $total_page = ceil($total_records / $limit);
         // Giới hạn current_page trong khoảng 1 đến total_page
@@ -147,7 +153,7 @@ class Product
             $totalRecords = $item["Total"];
 
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 1; 
+        $limit = 1;
 
         $total_page = ceil($total_records / $limit);
         // Giới hạn current_page trong khoảng 1 đến total_page
