@@ -11,6 +11,13 @@
     <meta charset="utf8">
     <link href="../../public/assets/css/site.css" rel="stylesheet">
     <link href="../../public/assets/css/bootstrap.min.css" rel="stylesheet">
+    <!--<script scr="../../public/asset/jquery-3.6.0.min.js"></script>-->
+    <script scr="../../public/assets/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script scr="../../public/assets/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../public/assets/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="../../public/assets/css/bootstrap.min.css">
     <title>Web bán hàng</title>
 </head>
 <body>

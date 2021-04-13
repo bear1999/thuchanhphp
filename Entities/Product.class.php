@@ -11,8 +11,12 @@ class Product
     public $Quantity;
     public $Description;
     public $Picture;
+    public $productBrand;
+    public $productRam;
+    public $productStorage;
+    public $productCamera;
 
-    public function __construct($proName, $cate_ID, $Price, $Quantity, $Descript, $Picture)
+    public function __construct($proName, $cate_ID, $Price, $Quantity, $Descript, $Picture, $productBrand, $productRam, $productStorage, $productCamera)
     {
         $this->productName = $proName;
         $this->cateID = $cate_ID;
@@ -20,6 +24,10 @@ class Product
         $this->Quantity = $Quantity;
         $this->Description = $Descript;
         $this->Picture = $Picture;
+        $this->productBrand = $productBrand;
+        $this->productRam = $productRam;
+        $this->productStorage = $productStorage;
+        $this->productCamera = $productCamera;
     }
 
     public function save()
@@ -34,8 +42,8 @@ class Product
             return false;
 
         $db = new Db();
-        $sql = "INSERT INTO product (ProductName, CateID, PriceProduct, Quantity, Description, Picture) VALUES 
-                ('$this->productName', '$this->cateID', '$this->Price', '$this->Quantity', '$this->Description', '$nameFile')";
+        $sql = "INSERT INTO product (ProductName, CateID, PriceProduct, Quantity, Description, Picture, productBrand, productRam, productStorage, productCamera) VALUES 
+                ('$this->productName', '$this->cateID', '$this->Price', '$this->Quantity', '$this->Description', '$nameFile', '$this->productBrand', '$this->productRam', '$this->productStorage', '$this->productCamera')";
         $result = $db->query_execute($sql);
         return $result;
     }

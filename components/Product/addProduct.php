@@ -9,8 +9,12 @@ if (isset($_POST['btnSubmit'])) {
     $Quantity = $_POST['txtQuantity'];
     $Description = $_POST['txtDescription'];
     $Picture = $_FILES['txtPicture'];
+    $productBrand = $_POST['txtBrand'];
+    $productRam = $_POST['txtRam'];
+    $productStorage = $_POST['txtStorage'];
+    $productCamera = $_POST['txtCamera'];
 
-    $newProduct = new Product($productName, $cateID, $Price, $Quantity, $Description, $Picture);
+    $newProduct = new Product($productName, $cateID, $Price, $Quantity, $Description, $Picture, $productBrand, $productRam, $productStorage, $productCamera);
     $result = $newProduct->save();
 
     if (!$result)
@@ -63,6 +67,42 @@ if (isset($_GET['inserted'])) {
             </div>
             <div class="col-sm-10">
                 <input type="number" name="txtPrice" value="<?php echo isset($_POST['txtPrice']) ? $_POST['txtPrice'] : "" ?>">
+            </div>
+        </div>
+        <!--Thương hiệu-->
+        <div class="form-group row"> <br>
+            <div class="col-sm-2 col-form-label">
+                <label>Thương hiệu</label>
+            </div>
+            <div class="col-sm-10">
+                <input type="text" name="txtBrand" value="<?php echo isset($_POST['txtBrand']) ? $_POST['txtBrand'] : "" ?>">
+            </div>
+        </div>
+        <!--Ram-->
+        <div class="form-group row"> <br>
+            <div class="col-sm-2 col-form-label">
+                <label>Ram</label>
+            </div>
+            <div class="col-sm-10">
+                <input type="number" name="txtRam" value="<?php echo isset($_POST['txtRam']) ? $_POST['txtRam'] : "" ?>">
+            </div>
+        </div>
+        <!--Bộ nhớ-->
+        <div class="form-group row"> <br>
+            <div class="col-sm-2 col-form-label">
+                <label>Bộ nhớ</label>
+            </div>
+            <div class="col-sm-10">
+                <input type="number" name="txtStorage" value="<?php echo isset($_POST['txtStorage']) ? $_POST['txtStorage'] : "" ?>">
+            </div>
+        </div>
+        <!--Camera-->
+        <div class="form-group row"> <br>
+            <div class="col-sm-2 col-form-label">
+                <label>Camera</label>
+            </div>
+            <div class="col-sm-10">
+                <input type="text" name="txtCamera" value="<?php echo isset($_POST['txtCamera']) ? $_POST['txtCamera'] : "" ?>">
             </div>
         </div>
         <!--Loại sp-->
