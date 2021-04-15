@@ -9,16 +9,16 @@ include_once("../header.php");
 
 $limit_default = 1;
 
-if(isset($_GET['limit'])) {
+if (isset($_GET['limit'])) {
     $limit = $_GET['limit'];
 } else $limit = 1;
 
-if(isset($_GET['page'])) {
+if (isset($_GET['page'])) {
     $current_page = $_GET['page'];
 } else $current_page = 1;
 
 
-if(!isset($_GET["cateid"])) {
+if (!isset($_GET["cateid"])) {
     $products = Product::listProduct($current_page, $limit);
 } else {
     $cateid = $_GET["cateid"];
@@ -39,8 +39,8 @@ $cates = Category::listCategory();
         </ul>
         <div class="list-group">
             <h3>Price</h3>
-            <input type="input" class="form-control" id="hidden_minimum_price" value="1000" min="1000"/> </br>
-            <input type="input" class="form-control" id="hidden_maximum_price" value="65000" max="65000"/> </br>
+            <input type="input" class="form-control" id="hidden_minimum_price" value="1000" min="1000" /> </br>
+            <input type="input" class="form-control" id="hidden_maximum_price" value="65000" max="65000" /> </br>
             <input class="form-control btn-success" value="Go" type="button">
             <!--<p id="price_show">1000 - 65000</p>-->
             <div id="price_range"></div>
@@ -50,64 +50,64 @@ $cates = Category::listCategory();
             <h3>Brand</h3>
             <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
                 <?php
-                    $query = "SELECT DISTINCT(productBrand) FROM product ORDER BY ProductID DESC";
-                    $result = $conn->query($query);
-                    if($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            ?>
-                            <div class="list-group-item checkbox">
-                                <label>
-                                    <input type="checkbox" class="common_selector brand" value="<?php echo $row['productBrand']; ?>">
-                                    <?php echo $row['productBrand']; ?>
-                                </label>
-                            </div>
-                            <?php
-                        }
+                $query = "SELECT DISTINCT(productBrand) FROM product ORDER BY ProductID DESC";
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                ?>
+                        <div class="list-group-item checkbox">
+                            <label>
+                                <input type="checkbox" class="common_selector brand" value="<?php echo $row['productBrand']; ?>">
+                                <?php echo $row['productBrand']; ?>
+                            </label>
+                        </div>
+                <?php
                     }
+                }
                 ?>
             </div>
         </div>
-            <!--Ram-->
+        <!--Ram-->
         <div class="list-group">
             <h3>Ram</h3>
             <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
                 <?php
-                    $query = "SELECT DISTINCT(productRam) FROM product ORDER BY ProductID DESC";
-                    $result = $conn->query($query);
-                    if($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            ?>
-                            <div class="list-group-item checkbox">
-                                <label>
-                                    <input type="checkbox" class="common_selector ram" value="<?php echo $row['productRam']; ?>">
-                                    <?php echo $row['productRam']; ?>
-                                </label>
-                            </div>
-                            <?php
-                        }
+                $query = "SELECT DISTINCT(productRam) FROM product ORDER BY ProductID DESC";
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                ?>
+                        <div class="list-group-item checkbox">
+                            <label>
+                                <input type="checkbox" class="common_selector ram" value="<?php echo $row['productRam']; ?>">
+                                <?php echo $row['productRam']; ?>
+                            </label>
+                        </div>
+                <?php
                     }
+                }
                 ?>
             </div>
         </div>
-            <!--Storage-->
+        <!--Storage-->
         <div class="list-group">
             <h3>Storage</h3>
             <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
                 <?php
-                    $query = "SELECT DISTINCT(productStorage) FROM product ORDER BY ProductID DESC";
-                    $result = $conn->query($query);
-                    if($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            ?>
-                            <div class="list-group-item checkbox">
-                                <label>
-                                    <input type="checkbox" class="common_selector storage" value="<?php echo $row['productStorage']; ?>">
-                                    <?php echo $row['productStorage']; ?>
-                                </label>
-                            </div>
-                            <?php
-                        }
+                $query = "SELECT DISTINCT(productStorage) FROM product ORDER BY ProductID DESC";
+                $result = $conn->query($query);
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                ?>
+                        <div class="list-group-item checkbox">
+                            <label>
+                                <input type="checkbox" class="common_selector storage" value="<?php echo $row['productStorage']; ?>">
+                                <?php echo $row['productStorage']; ?>
+                            </label>
+                        </div>
+                <?php
                     }
+                }
                 ?>
             </div>
         </div>
@@ -117,7 +117,7 @@ $cates = Category::listCategory();
         <div style="padding-top: 10px;"></div>
         <h3 class="text-center">
             <div class="alert alert-primary">
-               <span style="color: black;">Sản phẩm cửa hàng</span>
+                <span style="color: black;">Sản phẩm cửa hàng</span>
             </div>
         </h3>
         <div class="row">
@@ -131,7 +131,7 @@ $cates = Category::listCategory();
     $(document).ready(function() {
         filter_data();
 
-        $('input').on('click', function () {
+        $('input').on('click', function() {
             filter_data();
         });
 

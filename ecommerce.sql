@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 15, 2021 lúc 12:46 PM
+-- Thời gian đã tạo: Th4 15, 2021 lúc 12:55 PM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.7
 
@@ -93,11 +93,11 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`ProductID`, `ProductName`, `CateID`, `PriceProduct`, `Quantity`, `Description`, `Picture`, `productBrand`, `productRam`, `productStorage`, `productCamera`) VALUES
-(6, 'Sp1', 1, 300000, 4, 'hi', '20210326051740Screenshot.png', NULL, NULL, NULL, NULL),
-(7, 'Sp2', 2, 200000, 4, 'hi', '20210326051740Screenshot.png', NULL, NULL, NULL, NULL),
-(8, 'Sp3', 3, 150000, 4, 'hi', '20210326051740Screenshot.png', NULL, NULL, NULL, NULL),
-(9, 'Sp7', 2, 100000, 4, '123', '20210330032630secondarytile.png', NULL, NULL, NULL, NULL),
-(10, 'dien thoai rac', 1, 700000, 6, 'haha', '20210330045621secondarytile.png', NULL, NULL, NULL, NULL);
+(6, 'Sp1', 1, 1000, 4, 'hi', '20210326051740Screenshot.png', 'LG', '4', '8', '12'),
+(7, 'Sp2', 2, 5000, 4, 'hi', '20210326051740Screenshot.png', 'Samsung', '2', '32', '12'),
+(8, 'Sp3', 3, 10000, 4, 'hi', '20210326051740Screenshot.png', 'Xiaomi', '8', '64', '32'),
+(9, 'Sp7', 2, 15000, 4, '123', '20210330032630secondarytile.png', 'Iphone', '2', '8', '12'),
+(10, 'dien thoai rac', 1, 20000, 6, 'haha', '20210330045621secondarytile.png', 'LG', '4', '64', '16');
 
 -- --------------------------------------------------------
 
