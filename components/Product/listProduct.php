@@ -25,22 +25,79 @@ if (!isset($_GET["cateid"])) {
     $products = Product::list_product_by_cateid($cateid, $current_page, $limit);
 }
 $cates = Category::listCategory();
+
+
+function showMenuLi($menus, $id_parent = 0) 
+{
+    $menu_tmp = array();
+    foreach ($menus as $key => $item) {
+        if ((int) $item['CateID_parent'] == (int) $id_parent) {
+            $menu_tmp[] = $item;
+            unset($menus[$key]);
+        }
+    }
+    if ($menu_tmp) 
+    {
+        foreach ($menu_tmp as $item) 
+        {
+            echo '<ul class="list-group">';
+            echo '<li class="list-group-item">';
+            echo '<a href="./listProduct.php?cateid='.$item['CateID'].'" style="text-decoration: none;">' . $item['CateName'] . '</a>';
+            echo '<div style="padding-left: 10px;"></div>
+                    <button style="background-color: #6495ED; color: white; border-radius: 3px; padding: 1px;" class="btn">></button>';
+            // echo '
+            // <form method="POST" action="./dequy.php?action=addMenu">
+            //     <div>
+            //         <table border="0">
+            //             <tr>
+            //                 <td>Title</td>
+            //                 <td><input name="title" class="form-control" id="menu_title_' . $item['CateID'] . '" value="' . $item['CateName'] . '" /></td>
+            //             </tr>
+            //             <tr>
+            //                 <td>Link</td>
+            //                 <td><input name="link" class="form-control" id="menu_link_' . $item['CateID'] . '" value="' . $item['CateName'] . '" /></td>
+            //             </tr>
+            //             <tr>
+            //                 <td>Parent</td>
+            //                 <td>
+            //                     <select name="parent_id" id="menu_parent_id_' . $item['CateID'] . '">
+            //                     </select></br></br>
+            //                     <button type="submit" data-id="' . $item['CateID'] . '" class="button menu-save btn btn-warning">Lưu</button
+            //                 </td>
+            //             </tr>
+            //         </table>
+            //        </div>';
+            echo '<div>';
+            showMenuLi($menus, $item['CateID']);
+            echo '</div>';
+            echo '</li>';
+            echo '</ul>';
+        }
+    }
+}
+
+$menus = $cates;
 ?>
+
 
 <div class="row container">
     <div class="col-sm-3">
         <br>
         <ul class="list-group">
-            <?php foreach ($cates as $item) { ?>
-                <a href="./listProduct.php?cateid=<?php echo $item['CateID']; ?>&page=1&limit=<?php echo $limit_default; ?>" style="text-decoration: none;">
-                    <li class="list-group-item"><?php echo $item['CateName']; ?></li>
+            <!--<?php //foreach ($cates as $item) { ?>
+                <a href="./listProduct.php?cateid=<?php //echo $item['CateID']; ?>" style="text-decoration: none;">
+                    <li class="list-group-item"><?php //echo $item['CateName']; ?></li>
                 </a>
-            <?php } ?>
+            <?php //} ?>-->
+            <div id="menu_wrapper">
+                <?php showMenuLi($menus); ?>
+            </div>
         </ul>
         <div class="list-group">
             <h3>Price</h3>
             <input type="input" class="form-control" id="hidden_minimum_price" value="1000" min="1000" /> </br>
             <input type="input" class="form-control" id="hidden_maximum_price" value="65000" max="65000" /> </br>
+            <input type="hidden" value="<?php echo isset($_GET['cateid']) ? $_GET['cateid'] : -1; ?>" id="CateID" />
             <input class="form-control btn-success" value="Go" type="button">
             <!--<p id="price_show">1000 - 65000</p>-->
             <div id="price_range"></div>
@@ -129,6 +186,18 @@ $cates = Category::listCategory();
 
 <script>
     $(document).ready(function() {
+        $('#menu_wrapper ul div').hide();
+        $('#menu_wrapper ul li button').click(function(){
+            var tmp = $(this).next('div');
+            if ($(tmp).is(':visible')){
+                $(tmp).hide();
+            }
+            else{
+                $(tmp).show();
+            }
+            return false;
+        }); 
+
         filter_data();
 
         $('input').on('click', function() {
@@ -140,7 +209,7 @@ $cates = Category::listCategory();
             var action = 'fetch_data';
             var minimum_price = document.getElementById("hidden_minimum_price").value;
             var maximum_price = document.getElementById("hidden_maximum_price").value;
-            console.log(minimum_price);
+            var CateID = document.getElementById("CateID").value;
             var brand = get_filter('brand');
             var ram = get_filter('ram');
             var storage = get_filter('storage');
@@ -153,7 +222,8 @@ $cates = Category::listCategory();
                     maximum_price: maximum_price,
                     brand: brand,
                     ram: ram,
-                    storage: storage
+                    storage: storage,
+                    cateid: CateID
 
                 },
                 success: function(data) {
